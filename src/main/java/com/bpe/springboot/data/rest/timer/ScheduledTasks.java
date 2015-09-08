@@ -28,7 +28,7 @@ public class ScheduledTasks {
         Iterable<Person> people = dao.findAll();
         Iterator<Person> peopleIt = people.iterator();
         while(peopleIt.hasNext()) {
-        	Person p = peopleIt.next();
+            Person p = peopleIt.next();
             logger.info("Person inventory: "+p.getLastName()+", "+p.getFirstName());
         }
         
