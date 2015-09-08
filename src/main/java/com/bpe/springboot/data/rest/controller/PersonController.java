@@ -11,7 +11,7 @@ import com.bpe.springboot.data.rest.entity.Person;
 import com.bpe.springboot.data.rest.repository.PersonRepository;
 
 /**
- * This rest controller complete with the PersonRepository.  It's basically an
+ * This rest controller competes with the PersonRepository.  It's basically an
  * extra Rest service.
  * 
  * Returns a person based on his last name:
