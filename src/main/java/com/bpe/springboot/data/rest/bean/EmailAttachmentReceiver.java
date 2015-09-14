@@ -16,6 +16,7 @@ import javax.mail.Store;
 import javax.mail.internet.MimeBodyPart;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 /**
  * This program demonstrates how to download e-mail messages and save
@@ -24,10 +25,15 @@ import org.apache.log4j.Logger;
  * @author www.codejava.net
  *
  */
+@Component
 public class EmailAttachmentReceiver {
 	
 	private final static Logger logger = Logger.getLogger(EmailAttachmentReceiver.class.getName());
 
+	public EmailAttachmentReceiver(String saveDir) {
+		this.saveDirectory = saveDir;
+	}
+	
 	private String saveDirectory;
 
 	/**

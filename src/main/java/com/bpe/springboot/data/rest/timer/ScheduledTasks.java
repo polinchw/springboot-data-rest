@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
 import com.bpe.springboot.data.rest.entity.Person;
 import com.bpe.springboot.data.rest.repository.PersonRepository;
 
@@ -21,6 +22,9 @@ public class ScheduledTasks {
     
     @Autowired
     PersonRepository dao;
+    
+    @Autowired
+    EmailAttachmentReceiver emailReciever;
 
     @Scheduled(fixedRate = 5000)
     public void printPeople() {       
@@ -30,7 +34,11 @@ public class ScheduledTasks {
         while(peopleIt.hasNext()) {
             Person p = peopleIt.next();
             logger.info("Person inventory: "+p.getLastName()+", "+p.getFirstName());
-        }
-        
+        }        
+    }
+    
+    @Scheduled(fixedRate=5000) 
+    public void getEmail() {
+    	
     }
 }
