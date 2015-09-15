@@ -12,3 +12,5 @@ docker run -p 8080:8080 -t polinchw/springboot-data-rest
 docker run -e "host=docker" -p 8080:8080 -t polinchw/springboot-data-rest
 #### Run the Docker image on Docker using the application-prop.properties config file 
 docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 -t polinchw/springboot-data-rest
+#### Run the Docker image on Docker using the application-prop.properties config file and overriding the host property
+docker run -e "SPRING_PROFILES_ACTIVE=prod" -e "host=docker" -p 8080:8080 -t polinchw/springboot-data-rest
