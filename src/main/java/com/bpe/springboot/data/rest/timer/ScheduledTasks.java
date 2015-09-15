@@ -23,8 +23,8 @@ public class ScheduledTasks {
     @Autowired
     PersonRepository dao;
     
-    @Autowired
-    EmailAttachmentReceiver emailReciever;
+//    @Autowired
+//    EmailAttachmentReceiver emailReciever;
 
     @Scheduled(fixedRate = 5000)
     public void printPeople() {       
