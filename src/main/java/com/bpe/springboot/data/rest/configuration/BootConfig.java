@@ -12,6 +12,10 @@ import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
  * 
  * java -jar springboot-data-rest.jar --saveDirectory="c:\\Spring"
  * 
+ * To run with the prod config file use this statement at the command line.
+ * 
+ * java -jar springboot-data-rest.jar --spring.profiles.active=prod
+ * 
  * @see http://www.tutorialspoint.com/spring/spring_java_based_configuration.htm
  * @see http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
  * 
