@@ -29,20 +29,17 @@ public class EmailAttachmentReceiver {
 	private final static Logger logger = Logger.getLogger(EmailAttachmentReceiver.class.getName());
 	
 	private String saveDirectory;
+	private String host;
+	private String port;
+	private String userName;
+	private String password;  	
 
-	public EmailAttachmentReceiver(String saveDir) {
-		this.saveDirectory = saveDir;
-	}
-	
-
-	/**
-	 * Sets the directory where attached files will be stored.
-	 * 
-	 * @param dir
-	 *            absolute path of the directory
-	 */
-	public void setSaveDirectory(String dir) {
-		this.saveDirectory = dir;
+	public EmailAttachmentReceiver(String saveDirectory, String host, String port, String userName, String password) {
+		this.saveDirectory = saveDirectory;
+		this.host = host;
+		this.port = port;
+		this.userName = userName;
+		this.password = password;
 	}
 
 	/**
@@ -53,8 +50,7 @@ public class EmailAttachmentReceiver {
 	 * @param userName
 	 * @param password
 	 */
-	public void downloadEmailAttachments(String host, String port,
-			String userName, String password) {
+	public void downloadEmailAttachments() {
 		Properties properties = new Properties();
 
 		// server setting

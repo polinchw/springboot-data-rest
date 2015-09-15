@@ -39,6 +39,7 @@ public class ScheduledTasks {
     
     @Scheduled(fixedRate=5000) 
     public void getEmail() {
-    	
+    	logger.info("Getting email.");
+    	emailReciever.downloadEmailAttachments();
     }
 }
