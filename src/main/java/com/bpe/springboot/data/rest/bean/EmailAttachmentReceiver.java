@@ -51,6 +51,7 @@ public class EmailAttachmentReceiver {
 	 * @param password
 	 */
 	public void downloadEmailAttachments() {
+		logger.info("host: "+host);
 		Properties properties = new Properties();
 
 		// server setting
