@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
 
 /**
- * Spring configuration class.
+ * Spring configuration class.  The properties in this class map to the application.properties file.
+ * The values can be overriden at the command line.
+ * 
+ * java -jar springboot-data-rest.jar --saveDirectory="c:\\Spring"
  * 
  * @see http://www.tutorialspoint.com/spring/spring_java_based_configuration.htm
  * @see http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
