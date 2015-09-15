@@ -2,6 +2,17 @@
 Simple Spring Boot project that uses JPA and Rest.
 Provides Docker support.
 
+### To run this program on the command line use these commands
+
+#### Basic start up
+java -jar -springboot-data-rest.jar
+
+#### Using the application-prod.properties
+java -jar -Dspring.profiles.active=prod springboot-data-rest.jar
+
+#### Using the application-prod.properties and overriding the host
+java -jar -Dspring.profiles.active=prod -Dhost=gmail.com springboot-data-rest.jar
+
 ### To run this program on Docker run these commands
 
 #### Maven command to build the Docker image
