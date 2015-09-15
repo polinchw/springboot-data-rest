@@ -27,12 +27,13 @@ import org.apache.log4j.Logger;
 public class EmailAttachmentReceiver {
 	
 	private final static Logger logger = Logger.getLogger(EmailAttachmentReceiver.class.getName());
+	
+	private String saveDirectory;
 
 	public EmailAttachmentReceiver(String saveDir) {
 		this.saveDirectory = saveDir;
 	}
 	
-	private String saveDirectory;
 
 	/**
 	 * Sets the directory where attached files will be stored.
