@@ -52,6 +52,7 @@ public class EmailAttachmentReceiver {
 	 */
 	public void downloadEmailAttachments() {
 		logger.info("host: "+host);
+		logger.info("port: "+port);
 		Properties properties = new Properties();
 
 		// server setting
