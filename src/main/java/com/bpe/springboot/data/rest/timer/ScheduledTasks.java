@@ -26,20 +26,20 @@ public class ScheduledTasks {
     @Autowired
     EmailAttachmentReceiver emailReciever;
 
-    @Scheduled(fixedRate = 5000)
-    public void printPeople() {       
-        logger.info("The time is now " + dateFormat.format(new Date()));
-        Iterable<Person> people = dao.findAll();
-        Iterator<Person> peopleIt = people.iterator();
-        while(peopleIt.hasNext()) {
-            Person p = peopleIt.next();
-            logger.info("Person inventory: "+p.getLastName()+", "+p.getFirstName());
-        }        
-    }
+//    @Scheduled(fixedRate = 5000)
+//    public void printPeople() {       
+//        logger.info("The time is now " + dateFormat.format(new Date()));
+//        Iterable<Person> people = dao.findAll();
+//        Iterator<Person> peopleIt = people.iterator();
+//        while(peopleIt.hasNext()) {
+//            Person p = peopleIt.next();
+//            logger.info("Person inventory: "+p.getLastName()+", "+p.getFirstName());
+//        }        
+//    }
     
     @Scheduled(fixedRate=5000) 
     public void getEmail() {
-    	logger.info("Getting email.");
-    	emailReciever.downloadEmailAttachments();
+//    	logger.info("Getting email.");
+//    	emailReciever.downloadEmailAttachments();
     }
 }
