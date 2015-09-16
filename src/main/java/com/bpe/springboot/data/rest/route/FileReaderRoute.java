@@ -13,8 +13,11 @@ import org.springframework.stereotype.Component;
 public class FileReaderRoute extends RouteBuilder {
 
 	@Override
-	public void configure() throws Exception {
-		from("file://{{inbox}}?delete=true").to("file://{{outbox}}");
+	public void configure() throws Exception {		
+		from("file://{{inbox}}?delete=true")
+		  .convertBodyTo(byte[].class, "iso-8859-1")
+		  .to("bean:orderProcessor?method=updateOrder")
+		  .to("file://{{outbox}}");
 	}
 
 }

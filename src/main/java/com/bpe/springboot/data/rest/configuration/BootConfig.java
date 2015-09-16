@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
+import com.bpe.springboot.data.rest.bean.OrderProcessor;
 
 /**
  * Spring configuration class.  The properties in this class map to the application.properties file.
@@ -41,9 +42,14 @@ public class BootConfig {
 	@Autowired
 	CamelContext camelContext;
 
-	@Bean
+	@Bean(name="emailReceiver")
     public EmailAttachmentReceiver emailAttachmentReceiver() {
 		return new EmailAttachmentReceiver(saveDirectory,host,port,userName,password);
+	}
+	
+	@Bean(name="orderProcessor")
+	public OrderProcessor orderProcessor() {
+		return new OrderProcessor();
 	}
 	
 }
