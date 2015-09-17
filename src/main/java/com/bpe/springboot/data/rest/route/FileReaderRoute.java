@@ -4,7 +4,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
 /**
- * Camel route for processing incoming files.
+ * Camel route for processing incoming order update files.
  * 
  * @author polinchakb
  *
