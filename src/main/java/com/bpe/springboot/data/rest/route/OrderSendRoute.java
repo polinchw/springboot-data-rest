@@ -4,20 +4,21 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
 /**
- * Camel route for processing incoming files.
+ * Camel route for sending new orders out.
  * 
  * @author polinchakb
  *
  */
 @Component
-public class FileReaderRoute extends RouteBuilder {
+public class OrderSendRoute extends RouteBuilder {
 
 	@Override
-	public void configure() throws Exception {		
-		from("file://{{order-update-inbox}}?delete=true")
+	public void configure() throws Exception {
+		from("file://{{create-order-outbox}}?delete=true")
 		  .convertBodyTo(byte[].class, "iso-8859-1")
 		  .to("bean:orderProcessor?method=updateOrder")
-		  .to("file://{{order-update-inbox-processed}}");
+		  .to("file://{{create-order-outbox-processed}}");
+		
 	}
 
 }

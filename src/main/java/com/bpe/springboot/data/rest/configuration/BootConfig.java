@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
 import com.bpe.springboot.data.rest.bean.OrderProcessor;
+import com.bpe.springboot.data.rest.repository.OrderRepository;
 
 /**
  * Spring configuration class.  The properties in this class map to the application.properties file.
@@ -38,9 +39,15 @@ public class BootConfig {
 	private String userName;
 	@Value("${password}")
 	private String password;
+	@Value("${create-order-outbox}")
+	private String createOrderOutbox;
+	
 	
 	@Autowired
 	CamelContext camelContext;
+	
+	@Autowired
+	OrderRepository orderDao;
 
 	@Bean(name="emailReceiver")
     public EmailAttachmentReceiver emailAttachmentReceiver() {
@@ -49,7 +56,7 @@ public class BootConfig {
 	
 	@Bean(name="orderProcessor")
 	public OrderProcessor orderProcessor() {
-		return new OrderProcessor();
+		return new OrderProcessor(orderDao,this.emailAttachmentReceiver(),createOrderOutbox);
 	}
 	
 }
