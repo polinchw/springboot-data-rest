@@ -23,7 +23,7 @@ import com.bpe.springboot.data.rest.repository.OrderRepository;
  */
 public class OrderProcessor {
 	
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH-mm-ss");
 	
 	private final static Logger logger = Logger.getLogger(OrderProcessor.class.getName());
 	
@@ -64,7 +64,8 @@ public class OrderProcessor {
        List<Order> orders = orderDao.findByDateSentIsNull();
        StringBuilder content = new StringBuilder();
        for(Order order : orders) {
-           content.append("Order : "+order.getId()+" information: "+order.getOrderInfo());       
+           content.append("Order : "+order.getId()+" information: "+order.getOrderInfo()); 
+           content.append("\n");
            order.setDateSent(Calendar.getInstance().getTime());
            orderDao.save(order);
        }
