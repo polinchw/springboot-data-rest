@@ -11,9 +11,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
+import com.bpe.springboot.data.rest.dao.OrderDao;
 import com.bpe.springboot.data.rest.entity.Order;
-import com.bpe.springboot.data.rest.repository.OrderRepository;
 
 /**
  * A bean for creating and updating orders based on the context found in a file.
@@ -27,14 +28,14 @@ public class OrderProcessor {
 	
 	private final static Logger logger = Logger.getLogger(OrderProcessor.class.getName());
 	
-	private OrderRepository orderDao;
+	private OrderDao orderDao;
         
     private EmailAttachmentReceiver emailReciever;
     
     private String createOrderOutbox;   
 
     @Autowired
-    public OrderProcessor(OrderRepository orderDao, EmailAttachmentReceiver emailAttachmentReceiver, String createOrderOutbox) {
+    public OrderProcessor(OrderDao orderDao, EmailAttachmentReceiver emailAttachmentReceiver, String createOrderOutbox) {
     	this.orderDao = orderDao;
     	this.emailReciever = emailAttachmentReceiver;
     	this.createOrderOutbox = createOrderOutbox;
@@ -67,7 +68,7 @@ public class OrderProcessor {
            content.append("Order : "+order.getId()+" information: "+order.getOrderInfo()); 
            content.append("\n");
            order.setDateSent(Calendar.getInstance().getTime());
-           orderDao.save(order);
+           ((PagingAndSortingRepository<Order, Long>) orderDao).save(order);
        }
        if(orders.size() == 0) {
     	   logger.info("There are no new orders to send.");
