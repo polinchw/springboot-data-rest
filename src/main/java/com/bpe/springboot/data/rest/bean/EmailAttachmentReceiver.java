@@ -58,13 +58,14 @@ public class EmailAttachmentReceiver {
 		// server setting
 		properties.put("mail.pop3.host", host);
 		properties.put("mail.pop3.port", port);
+		properties.put("mail.store.protocol", "pop3s");
+		properties.put("mail.pop3.starttls.enable", "true");
+	    properties.put("mail.pop3s.auth", "true");
 
 		// SSL setting
-		properties.setProperty("mail.pop3.socketFactory.class",
-				"javax.net.ssl.SSLSocketFactory");
+		properties.setProperty("mail.pop3.socketFactory.class","javax.net.ssl.SSLSocketFactory");
 		properties.setProperty("mail.pop3.socketFactory.fallback", "false");
-		properties.setProperty("mail.pop3.socketFactory.port",
-				String.valueOf(port));
+		properties.setProperty("mail.pop3.socketFactory.port",String.valueOf(port));
 
 		Session session = Session.getDefaultInstance(properties);
 
