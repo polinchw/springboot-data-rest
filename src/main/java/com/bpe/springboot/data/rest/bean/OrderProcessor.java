@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -22,6 +22,8 @@ import com.bpe.springboot.data.rest.repository.OrderRepository;
  *
  */
 public class OrderProcessor {
+	
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	
 	private final static Logger logger = Logger.getLogger(OrderProcessor.class.getName());
 	
@@ -66,11 +68,14 @@ public class OrderProcessor {
            order.setDateSent(Calendar.getInstance().getTime());
            orderDao.save(order);
        }
-       
+       if(orders.size() == 0) {
+    	   logger.info("There are no new orders to send.");
+    	   return;
+       }
        BufferedWriter bw = null;
        try {			
-
-			File file = new File(createOrderOutbox+"/order.txt");
+            String timestamp = dateFormat.format(Calendar.getInstance().getTime());
+			File file = new File(createOrderOutbox+"/order.txt."+timestamp);
 
 			// if file doesnt exists, then create it
 			if (!file.exists()) {

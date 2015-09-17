@@ -22,7 +22,7 @@ public class ScheduledTasks {
     /**
      * Check email for order updates.
      */
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 50000000)
     public void checkOrders() {       
         logger.info("Checking orders.");
         orderProcessor.checkOrders();
@@ -31,7 +31,7 @@ public class ScheduledTasks {
     /**
      * Check the database for new orders.
      */
-    @Scheduled(fixedRate=5000) 
+    @Scheduled(fixedRate=10000) 
     public void sendOrders() {
     	logger.info("Sending orders...");
     	orderProcessor.sendOrders();
