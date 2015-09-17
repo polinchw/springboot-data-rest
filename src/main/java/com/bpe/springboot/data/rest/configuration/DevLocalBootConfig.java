@@ -27,7 +27,7 @@ import com.bpe.springboot.data.rest.repository.OrderRepository;
  *
  */
 @Configuration
-public class BootConfig {
+public class DevLocalBootConfig {
 	
 	@Value("${saveDirectory}")
 	private String saveDirectory;
