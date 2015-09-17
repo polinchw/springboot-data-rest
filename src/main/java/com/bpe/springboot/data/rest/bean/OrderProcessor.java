@@ -57,7 +57,7 @@ public class OrderProcessor {
 	 * Check the database for new orders.  Write the new order to an out bound file.
 	 */
     public void sendOrders() {
-       List<Order> orders = orderDao.findByDateSent(null);
+       List<Order> orders = orderDao.findByDateSentIsNull();
        StringBuilder content = new StringBuilder();
        for(Order order : orders) {
            content.append("Order : "+order.getId()+" information: "+order.getOrderInfo());           
