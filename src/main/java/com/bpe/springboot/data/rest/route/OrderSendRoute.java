@@ -12,11 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderSendRoute extends RouteBuilder {
 
+	/**
+	 * We'll update this in future to email the attachments.
+	 */
 	@Override
 	public void configure() throws Exception {
 		from("file://{{create-order-outbox}}?delete=true")
-		  .convertBodyTo(byte[].class, "iso-8859-1")
-		  .to("bean:orderProcessor?method=updateOrder")
 		  .to("file://{{create-order-outbox-processed}}");
 		
 	}
