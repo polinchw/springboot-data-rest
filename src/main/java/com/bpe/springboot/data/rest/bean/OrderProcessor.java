@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -23,11 +25,11 @@ public class OrderProcessor {
 	
 	private final static Logger logger = Logger.getLogger(OrderProcessor.class.getName());
 	
-	private final OrderRepository orderDao;
+	private OrderRepository orderDao;
         
-    private final EmailAttachmentReceiver emailReciever;
+    private EmailAttachmentReceiver emailReciever;
     
-    private final String createOrderOutbox;   
+    private String createOrderOutbox;   
 
     @Autowired
     public OrderProcessor(OrderRepository orderDao, EmailAttachmentReceiver emailAttachmentReceiver, String createOrderOutbox) {
@@ -60,8 +62,11 @@ public class OrderProcessor {
        List<Order> orders = orderDao.findByDateSentIsNull();
        StringBuilder content = new StringBuilder();
        for(Order order : orders) {
-           content.append("Order : "+order.getId()+" information: "+order.getOrderInfo());           
+           content.append("Order : "+order.getId()+" information: "+order.getOrderInfo());       
+           order.setDateSent(Calendar.getInstance().getTime());
+           orderDao.save(order);
        }
+       
        BufferedWriter bw = null;
        try {			
 
