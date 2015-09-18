@@ -68,7 +68,7 @@ public class OrderProcessor {
            content.append("Order : "+order.getId()+" information: "+order.getOrderInfo()); 
            content.append("\n");
            order.setDateSent(Calendar.getInstance().getTime());
-           ((PagingAndSortingRepository<Order, Long>) orderDao).save(order);
+           orderDao.save(order);
        }
        if(orders.size() == 0) {
     	   logger.info("There are no new orders to send.");

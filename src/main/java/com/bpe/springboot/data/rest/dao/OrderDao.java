@@ -9,5 +9,7 @@ public interface OrderDao {
 	List<Order> findByStatus(String status);
 
 	List<Order> findByDateSentIsNull();
+	
+	Order save(Order order);
 
 }
