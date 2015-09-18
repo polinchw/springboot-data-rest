@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
 import com.bpe.springboot.data.rest.bean.OrderProcessor;
 import com.bpe.springboot.data.rest.dao.OrderDao;
+import com.bpe.springboot.data.rest.repository.OrderRepository;
 
 /**
  * Spring configuration class.  The properties in this class map to the application.properties file.
@@ -48,7 +49,7 @@ public class DevLocalBootConfig {
 	CamelContext camelContext;
 	
 	@Autowired
-	OrderDao orderDao;
+	OrderRepository orderDao;
 
 	@Bean(name="emailReceiver")
     public EmailAttachmentReceiver emailAttachmentReceiver() {
