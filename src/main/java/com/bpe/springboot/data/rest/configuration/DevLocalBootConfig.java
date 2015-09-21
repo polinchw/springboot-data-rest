@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
 import com.bpe.springboot.data.rest.bean.OrderProcessor;
+import com.bpe.springboot.data.rest.bean.TextFileOrderProcessor;
 import com.bpe.springboot.data.rest.dao.OrderDao;
 import com.bpe.springboot.data.rest.repository.OrderRepository;
 
@@ -58,7 +59,7 @@ public class DevLocalBootConfig {
 	
 	@Bean(name="orderProcessor")
 	public OrderProcessor orderProcessor() {
-		return new OrderProcessor(orderDao,this.emailAttachmentReceiver(),createOrderOutbox);
+		return new TextFileOrderProcessor(orderDao,this.emailAttachmentReceiver(),createOrderOutbox);
 	}
 	
 }
