@@ -58,7 +58,7 @@ public class DevLocalBootConfig {
 	
 	@Bean(name="orderProcessor")
 	public OrderProcessor orderProcessor() {
-		return new TextFileOrderProcessor(orderDao,this.emailAttachmentReceiver(),createOrderOutbox);
+		return new TextFileOrderProcessor(camelContext,orderDao,this.emailAttachmentReceiver(),createOrderOutbox);
 	}
 	
 }

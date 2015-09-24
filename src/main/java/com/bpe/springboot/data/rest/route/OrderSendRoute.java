@@ -17,8 +17,8 @@ public class OrderSendRoute extends RouteBuilder {
 	 */
 	@Override
 	public void configure() throws Exception {
-		from("file://{{create-order-outbox}}?delete=true")
-		  .to("file://{{create-order-outbox-processed}}");
+//		from("file://{{create-order-outbox}}?delete=true")
+//		  .to("file://{{create-order-outbox-processed}}");
 		
 	}
 

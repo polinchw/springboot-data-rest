@@ -13,12 +13,9 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
-import javax.mail.URLName;
 import javax.mail.internet.MimeBodyPart;
 
 import org.apache.log4j.Logger;
-
-import com.sun.mail.pop3.POP3SSLStore;
 
 /**
  * This program demonstrates how to download e-mail messages and save

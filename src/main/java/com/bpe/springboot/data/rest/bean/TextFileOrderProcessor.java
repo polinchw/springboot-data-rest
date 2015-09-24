@@ -6,8 +6,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+
+import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Exchange;
+import org.apache.camel.Message;
+import org.apache.camel.Producer;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,9 +41,12 @@ public class TextFileOrderProcessor implements OrderProcessor {
     private EmailAttachmentReceiver emailReciever;
     
     private String createOrderOutbox;   
+      
+	private CamelContext context;
 
     @Autowired
-    public TextFileOrderProcessor(OrderDao orderDao, EmailAttachmentReceiver emailAttachmentReceiver, String createOrderOutbox) {
+    public TextFileOrderProcessor(CamelContext camelContext, OrderDao orderDao, EmailAttachmentReceiver emailAttachmentReceiver, String createOrderOutbox) {
+    	context = camelContext;
     	this.orderDao = orderDao;
     	this.emailReciever = emailAttachmentReceiver;
     	this.createOrderOutbox = createOrderOutbox;
@@ -90,8 +103,35 @@ public class TextFileOrderProcessor implements OrderProcessor {
 			bw.close();
 
 			logger.info("Done writing order.");
+			logger.info("Emailing the order....");
+			// create an exchange with a normal body and attachment to be produced as email
+//			String recipients = "&To=polinchw@netscape.net";
+			Endpoint endpoint = context.getEndpoint("smtps://springboot.data.rest@smtp.gmail.com?password=whsvarpcodgenjjl");
+			 
+			// create the exchange with the mail message that is multipart with a file and a Hello World text/plain message.
+			Exchange exchange = endpoint.createExchange();
+			Message in = exchange.getIn();
+			in.setBody("Hello World");
+			Map<String, Object> headers = new HashMap<>();
+			headers.put("from", "springboot.data.rest@gmail.com");
+			headers.put("to", "polinchw@netscape.net");
+			headers.put("subject", "Hello");
+			headers.put("contentType", "text/plain;charset=UTF-8");
+			in.setHeaders(headers);
+			in.setBody("Test");
 
-		} catch (IOException e) {
+//			in.addAttachment("order.txt", new DataHandler(new FileDataSource(createOrderOutbox+"/order.txt"+timestamp)));
+			in.addAttachment("order.txt", new DataHandler(new FileDataSource(file)));
+			
+			 
+			// create a producer that can produce the exchange (= send the mail)
+			Producer producer = endpoint.createProducer();
+			// start the producer
+			producer.start();
+			// and let it go (processes the exchange by sending the email)
+			producer.process(exchange);
+            logger.info("Done sending emails.");
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if(bw != null) {
