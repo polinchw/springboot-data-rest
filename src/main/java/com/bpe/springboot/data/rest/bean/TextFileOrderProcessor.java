@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,7 +53,6 @@ public class TextFileOrderProcessor implements OrderProcessor {
 	@Override
 	public void updateOrder(byte[] fileContents) {
 		logger.info("updateOrder invoked");
-//		String file = Arrays.toString(fileContents);
 		String decrypted = new String(fileContents);
 		logger.info("file contents: "+decrypted);
 	}
