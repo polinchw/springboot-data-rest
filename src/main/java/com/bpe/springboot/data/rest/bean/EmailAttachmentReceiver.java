@@ -13,9 +13,12 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
+import javax.mail.URLName;
 import javax.mail.internet.MimeBodyPart;
 
 import org.apache.log4j.Logger;
+
+import com.sun.mail.pop3.POP3SSLStore;
 
 /**
  * This program demonstrates how to download e-mail messages and save
@@ -53,27 +56,24 @@ public class EmailAttachmentReceiver {
 	public void downloadEmailAttachments() {
 		logger.info("host: "+host);
 		logger.info("port: "+port);
-		Properties properties = new Properties();
+		logger.info("userName: "+userName);
+		Properties props = new Properties();
+		props.put("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.pop3.socketFactory.fallback", "false");
+		props.put("mail.pop3.socketFactory.port", "995");
+		props.put("mail.pop3.port", "995");
+		props.put("mail.pop3.host", "pop.gmail.com");
+		props.put("mail.pop3.user", "springboot.data.rest");
+		props.put("mail.store.protocol", "pop3");
 
-		// server setting
-		properties.put("mail.pop3.host", host);
-		properties.put("mail.pop3.port", port);
-		properties.put("mail.store.protocol", "pop3s");
-		properties.put("mail.pop3.starttls.enable", "true");
-	    properties.put("mail.pop3s.auth", "true");
-
-		// SSL setting
-		properties.setProperty("mail.pop3.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-		properties.setProperty("mail.pop3.socketFactory.fallback", "false");
-		properties.setProperty("mail.pop3.socketFactory.port",String.valueOf(port));
-
-		Session session = Session.getDefaultInstance(properties);
+		Session session = Session.getDefaultInstance(props,null);
 
 		try {
 			// connects to the message store
-			Store store = session.getStore("pop3");
-			store.connect(userName, password);
-
+//			URLName url = new URLName("pop3", host, Integer.valueOf(port), "",
+//	                userName, password);
+			Store store =  session.getStore("pop3");
+			store.connect("pop.gmail.com", userName, "whsvarpcodgenjjl");
 			// opens the inbox folder
 			Folder folderInbox = store.getFolder("INBOX");
 			folderInbox.open(Folder.READ_ONLY);

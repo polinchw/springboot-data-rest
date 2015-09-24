@@ -33,7 +33,7 @@ public class ScheduledTasks {
      */
     @Scheduled(fixedRate=10000) 
     public void sendOrders() {
-    	logger.info("Sending orders...");
-    	orderProcessor.sendOrders();
+//    	logger.info("Sending orders...");
+//    	orderProcessor.sendOrders();
     }
 }

@@ -35,14 +35,14 @@ public class DevLocalBootConfig {
 	
 	@Value("${saveDirectory}")
 	private String saveDirectory;
-	@Value("${host}")
-	private String host;
-	@Value("${port}")
-	private String port;
-	@Value("${userName}")
-	private String userName;
-	@Value("${password}")
-	private String password;
+	@Value("${popHost}")
+	private String popHost;
+	@Value("${popPort}")
+	private String popPort;
+	@Value("${popUserName}")
+	private String popUserName;
+	@Value("${popPassword}")
+	private String popPassword;
 	@Value("${create-order-outbox}")
 	private String createOrderOutbox;
 	
@@ -54,7 +54,7 @@ public class DevLocalBootConfig {
 
 	@Bean(name="emailReceiver")
     public EmailAttachmentReceiver emailAttachmentReceiver() {
-		return new EmailAttachmentReceiver(saveDirectory,host,port,userName,password);
+		return new EmailAttachmentReceiver(saveDirectory,popHost,popPort,popUserName,popPassword);
 	}
 	
 	@Bean(name="orderProcessor")
