@@ -44,6 +44,15 @@ public class DevLocalBootConfig {
 	private String popPassword;
 	@Value("${create-order-outbox}")
 	private String createOrderOutbox;
+	@Value("${smtpHost}")
+    private String smtpHost;
+	@Value("${smtpUsername}")
+	private String smtpUsername;
+	@Value("${smtpPassword}")
+	private String smtpPassword;
+	@Value("${toEmail}")
+	private String toEmail;
+
 	
 	@Autowired
 	CamelContext camelContext;
@@ -58,7 +67,7 @@ public class DevLocalBootConfig {
 	
 	@Bean(name="orderProcessor")
 	public OrderProcessor orderProcessor() {
-		return new TextFileOrderProcessor(camelContext,orderDao,this.emailAttachmentReceiver(),createOrderOutbox);
+		return new TextFileOrderProcessor(camelContext,orderDao,this.emailAttachmentReceiver(),createOrderOutbox,smtpHost,smtpUsername,smtpPassword,toEmail);
 	}
 	
 }

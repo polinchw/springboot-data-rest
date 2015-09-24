@@ -43,13 +43,32 @@ public class TextFileOrderProcessor implements OrderProcessor {
     private String createOrderOutbox;   
       
 	private CamelContext context;
+	
+	private String smtpHost;
+	
+	private String smtpUsername;
+	
+	private String smtpPassword;
+	
+	private String toEmail;
 
     @Autowired
-    public TextFileOrderProcessor(CamelContext camelContext, OrderDao orderDao, EmailAttachmentReceiver emailAttachmentReceiver, String createOrderOutbox) {
+    public TextFileOrderProcessor(CamelContext camelContext, 
+    		                      OrderDao orderDao, 
+    		                      EmailAttachmentReceiver emailAttachmentReceiver, 
+    		                      String createOrderOutbox,
+    		                      String smtpHost,
+    		                      String smtpUsername,
+    		                      String smtpPassword,
+    		                      String toEmail) {
     	context = camelContext;
     	this.orderDao = orderDao;
     	this.emailReciever = emailAttachmentReceiver;
     	this.createOrderOutbox = createOrderOutbox;
+    	this.smtpHost = smtpHost;
+    	this.smtpUsername = smtpUsername;
+    	this.smtpPassword = smtpPassword;
+    	this.toEmail = toEmail;
     }
     
     /* (non-Javadoc)
@@ -105,23 +124,21 @@ public class TextFileOrderProcessor implements OrderProcessor {
 			logger.info("Done writing order.");
 			logger.info("Emailing the order....");
 			// create an exchange with a normal body and attachment to be produced as email
-			Endpoint endpoint = context.getEndpoint("smtps://springboot.data.rest@smtp.gmail.com?password=whsvarpcodgenjjl");
+			Endpoint endpoint = context.getEndpoint("smtps://"+smtpUsername+"@"+smtpHost+"?password="+smtpPassword);
 			 
 			// create the exchange with the mail message that is multipart with a file and a Hello World text/plain message.
 			Exchange exchange = endpoint.createExchange();
 			Message in = exchange.getIn();
-			in.setBody("Hello World");
+			in.setBody("New Orders are attached.");
 			Map<String, Object> headers = new HashMap<>();
-			headers.put("from", "springboot.data.rest@gmail.com");
-			headers.put("to", "polinchw@netscape.net");
+			headers.put("from", this.smtpUsername+"@gmail.com");
+			headers.put("to", this.toEmail);
 			headers.put("subject", "New Orders");
 			headers.put("contentType", "text/plain;charset=UTF-8");
 			in.setHeaders(headers);
 			in.setBody("See attachement for new orders.");
 
-//			in.addAttachment("order.txt", new DataHandler(new FileDataSource(createOrderOutbox+"/order.txt"+timestamp)));
-			in.addAttachment("order.txt", new DataHandler(new FileDataSource(file)));
-			
+			in.addAttachment("order.txt", new DataHandler(new FileDataSource(file)));			
 			 
 			// create a producer that can produce the exchange (= send the mail)
 			Producer producer = endpoint.createProducer();
