@@ -10,11 +10,7 @@ public class EmailReaderRoute extends RouteBuilder{
 	public void configure() throws Exception {
 //		from("pop3://springboot.data.rest@pop.gmail.com:995?password=springboot"
 //			    + "&delete=false&unseen=true&consumer.delay=60000").process(new EmailReaderProcessor());
-		
-		
-//		from("imaps://springboot.data.rest@imap.gmail.com:993?password=springboot"
-//			    + "&delete=false&unseen=true&consumer.delay=60000").process(new EmailReaderProcessor());
-		
+	
 	}
 
 }
