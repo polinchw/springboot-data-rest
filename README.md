@@ -27,4 +27,5 @@ docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 -t polinchw/springboot-
 docker run -e "SPRING_PROFILES_ACTIVE=prod" -e "host=docker" -p 8080:8080 -t polinchw/springboot-data-rest
 #### To connect to the bash shell of the running container
 docker exec -it "id of running container" bash
+
 /home/polinchakb/order-update-processed-outbox will have files of order updates
