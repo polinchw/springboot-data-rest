@@ -60,20 +60,18 @@ public class EmailAttachmentReceiver {
 		Properties props = new Properties();
 		props.put("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.pop3.socketFactory.fallback", "false");
-		props.put("mail.pop3.socketFactory.port", "995");
-		props.put("mail.pop3.port", "995");
-		props.put("mail.pop3.host", "pop.gmail.com");
-		props.put("mail.pop3.user", "springboot.data.rest");
+		props.put("mail.pop3.socketFactory.port", port);
+		props.put("mail.pop3.port", port);
+		props.put("mail.pop3.host", host);
+		props.put("mail.pop3.user", userName);
 		props.put("mail.store.protocol", "pop3");
 
 		Session session = Session.getDefaultInstance(props,null);
 
 		try {
 			// connects to the message store
-//			URLName url = new URLName("pop3", host, Integer.valueOf(port), "",
-//	                userName, password);
 			Store store =  session.getStore("pop3");
-			store.connect("pop.gmail.com", userName, "whsvarpcodgenjjl");
+			store.connect("pop.gmail.com", userName, password);
 			// opens the inbox folder
 			Folder folderInbox = store.getFolder("INBOX");
 			folderInbox.open(Folder.READ_ONLY);
