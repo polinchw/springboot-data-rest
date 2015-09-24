@@ -54,8 +54,9 @@ public class TextFileOrderProcessor implements OrderProcessor {
 	@Override
 	public void updateOrder(byte[] fileContents) {
 		logger.info("updateOrder invoked");
-		String file = Arrays.toString(fileContents);
-		logger.info("file contents: "+file);
+//		String file = Arrays.toString(fileContents);
+		String decrypted = new String(fileContents);
+		logger.info("file contents: "+decrypted);
 	}
 
 	/* (non-Javadoc)
