@@ -105,7 +105,6 @@ public class TextFileOrderProcessor implements OrderProcessor {
 			logger.info("Done writing order.");
 			logger.info("Emailing the order....");
 			// create an exchange with a normal body and attachment to be produced as email
-//			String recipients = "&To=polinchw@netscape.net";
 			Endpoint endpoint = context.getEndpoint("smtps://springboot.data.rest@smtp.gmail.com?password=whsvarpcodgenjjl");
 			 
 			// create the exchange with the mail message that is multipart with a file and a Hello World text/plain message.
@@ -115,10 +114,10 @@ public class TextFileOrderProcessor implements OrderProcessor {
 			Map<String, Object> headers = new HashMap<>();
 			headers.put("from", "springboot.data.rest@gmail.com");
 			headers.put("to", "polinchw@netscape.net");
-			headers.put("subject", "Hello");
+			headers.put("subject", "New Orders");
 			headers.put("contentType", "text/plain;charset=UTF-8");
 			in.setHeaders(headers);
-			in.setBody("Test");
+			in.setBody("See attachement for new orders.");
 
 //			in.addAttachment("order.txt", new DataHandler(new FileDataSource(createOrderOutbox+"/order.txt"+timestamp)));
 			in.addAttachment("order.txt", new DataHandler(new FileDataSource(file)));
