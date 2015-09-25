@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class FileReaderRoute extends RouteBuilder {
+public class OrderUpdateRoute extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {		
