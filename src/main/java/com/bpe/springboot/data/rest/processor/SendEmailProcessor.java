@@ -13,7 +13,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
-import org.apache.camel.util.ExchangeHelper;
 import org.apache.log4j.Logger;
 
 /**
@@ -46,7 +45,7 @@ public class SendEmailProcessor implements Processor {
 	public void process(Exchange ex) throws Exception {
 		logger.info("Emailing the order....");
 		logger.info("toEmail: "+toEmail);
-		File file = ExchangeHelper.getMandatoryInBody(ex, File.class); 
+		File file = ex.getIn().getBody(File.class);
 		// create an exchange with a normal body and attachment to be produced as email
 		Endpoint endpoint = context.getEndpoint("smtps://"+smtpUsername+"@"+smtpHost+"?password="+smtpPassword);
 		 
