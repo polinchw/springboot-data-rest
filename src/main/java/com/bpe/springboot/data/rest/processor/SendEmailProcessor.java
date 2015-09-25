@@ -41,6 +41,9 @@ public class SendEmailProcessor implements Processor {
 		this.toEmail = toEmail;
 	}
 
+	/**
+	 * Get the file object from the exchange and email as an attachment.
+	 */
 	@Override
 	public void process(Exchange ex) throws Exception {
 		logger.info("Emailing the order....");
