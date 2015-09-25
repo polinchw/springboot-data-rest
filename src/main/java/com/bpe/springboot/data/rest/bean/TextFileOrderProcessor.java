@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bpe.springboot.data.rest.dao.OrderDao;
 import com.bpe.springboot.data.rest.entity.Order;
+import com.bpe.springboot.data.rest.service.OrderProcessor;
 
 /**
  * A bean for creating and updating orders based on the context found in a file.

@@ -1,4 +1,4 @@
-package com.bpe.springboot.data.rest.bean;
+package com.bpe.springboot.data.rest.service;
 
 public interface OrderProcessor {
 

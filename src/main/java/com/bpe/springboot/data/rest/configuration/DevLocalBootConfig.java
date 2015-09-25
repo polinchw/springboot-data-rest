@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
-import com.bpe.springboot.data.rest.bean.OrderProcessor;
 import com.bpe.springboot.data.rest.bean.TextFileOrderProcessor;
 import com.bpe.springboot.data.rest.processor.SendEmailProcessor;
 import com.bpe.springboot.data.rest.repository.OrderRepository;
+import com.bpe.springboot.data.rest.service.OrderProcessor;
 
 /**
  * Spring configuration class.  The properties in this class map to the application.properties file.

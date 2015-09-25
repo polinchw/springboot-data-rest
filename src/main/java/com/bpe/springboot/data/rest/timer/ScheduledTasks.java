@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.bpe.springboot.data.rest.bean.OrderProcessor;
+import com.bpe.springboot.data.rest.service.OrderProcessor;
 
 @Component
 public class ScheduledTasks {
