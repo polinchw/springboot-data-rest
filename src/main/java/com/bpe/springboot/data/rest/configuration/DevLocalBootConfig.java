@@ -1,6 +1,7 @@
 package com.bpe.springboot.data.rest.configuration;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Processor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.bpe.springboot.data.rest.bean.EmailAttachmentReceiver;
 import com.bpe.springboot.data.rest.bean.OrderProcessor;
 import com.bpe.springboot.data.rest.bean.TextFileOrderProcessor;
+import com.bpe.springboot.data.rest.processor.SendEmailProcessor;
 import com.bpe.springboot.data.rest.repository.OrderRepository;
 
 /**
@@ -68,6 +70,11 @@ public class DevLocalBootConfig {
 	@Bean(name="orderProcessor")
 	public OrderProcessor orderProcessor() {
 		return new TextFileOrderProcessor(camelContext,orderDao,this.emailAttachmentReceiver(),createOrderOutbox,smtpHost,smtpUsername,smtpPassword,toEmail);
+	}
+	
+	@Bean(name="sendEmailProcessor")
+	public Processor sendEmailProcessor() {
+		return new SendEmailProcessor(camelContext,smtpHost,smtpUsername,smtpPassword,toEmail);
 	}
 	
 }

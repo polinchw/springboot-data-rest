@@ -6,18 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
-import org.apache.camel.Exchange;
-import org.apache.camel.Message;
-import org.apache.camel.Producer;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,17 +31,7 @@ public class TextFileOrderProcessor implements OrderProcessor {
         
     private EmailAttachmentReceiver emailReciever;
     
-    private String createOrderOutbox;   
-      
-	private CamelContext context;
-	
-	private String smtpHost;
-	
-	private String smtpUsername;
-	
-	private String smtpPassword;
-	
-	private String toEmail;
+    private String createOrderOutbox;  
 
     @Autowired
     public TextFileOrderProcessor(CamelContext camelContext, 
@@ -61,27 +42,17 @@ public class TextFileOrderProcessor implements OrderProcessor {
     		                      String smtpUsername,
     		                      String smtpPassword,
     		                      String toEmail) {
-    	context = camelContext;
+    	
     	this.orderDao = orderDao;
     	this.emailReciever = emailAttachmentReceiver;
     	this.createOrderOutbox = createOrderOutbox;
-    	this.smtpHost = smtpHost;
-    	this.smtpUsername = smtpUsername;
-    	this.smtpPassword = smtpPassword;
-    	this.toEmail = toEmail;
     }
-    
-    /* (non-Javadoc)
-	 * @see com.bpe.springboot.data.rest.bean.OrderProcessor#checkOrders()
-	 */
+
 	@Override
 	public void checkOrders(){
 		emailReciever.downloadEmailAttachments();
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.bpe.springboot.data.rest.bean.OrderProcessor#updateOrder(byte[])
-	 */
+
 	@Override
 	public void updateOrder(byte[] fileContents) {
 		logger.info("updateOrder invoked");
@@ -89,9 +60,6 @@ public class TextFileOrderProcessor implements OrderProcessor {
 		logger.info("file contents: "+decrypted);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.bpe.springboot.data.rest.bean.OrderProcessor#sendOrders()
-	 */
     @Override
 	public void sendOrders() {
        List<Order> orders = orderDao.findByDateSentIsNull();
@@ -122,31 +90,7 @@ public class TextFileOrderProcessor implements OrderProcessor {
 			bw.close();
 
 			logger.info("Done writing order.");
-			logger.info("Emailing the order....");
-			// create an exchange with a normal body and attachment to be produced as email
-			Endpoint endpoint = context.getEndpoint("smtps://"+smtpUsername+"@"+smtpHost+"?password="+smtpPassword);
-			 
-			// create the exchange with the mail message that is multipart with a file and a Hello World text/plain message.
-			Exchange exchange = endpoint.createExchange();
-			Message in = exchange.getIn();
-			in.setBody("New Orders are attached.");
-			Map<String, Object> headers = new HashMap<>();
-			headers.put("from", this.smtpUsername+"@gmail.com");
-			headers.put("to", this.toEmail);
-			headers.put("subject", "New Orders");
-			headers.put("contentType", "text/plain;charset=UTF-8");
-			in.setHeaders(headers);
-			in.setBody("See attachement for new orders.");
-
-			in.addAttachment("order.txt", new DataHandler(new FileDataSource(file)));			
-			 
-			// create a producer that can produce the exchange (= send the mail)
-			Producer producer = endpoint.createProducer();
-			// start the producer
-			producer.start();
-			// and let it go (processes the exchange by sending the email)
-			producer.process(exchange);
-            logger.info("Done sending emails.");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
