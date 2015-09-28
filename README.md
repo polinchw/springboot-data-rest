@@ -29,5 +29,3 @@ docker run -e "SPRING_PROFILES_ACTIVE=prod" -e "host=docker" -p 8080:8080 -t pol
 docker exec -it "id of running container" bash
 
 /home/polinchakb/order-update-processed-outbox will have files of order updates
-
-Add from intellij
