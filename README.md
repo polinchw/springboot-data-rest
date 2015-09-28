@@ -1,6 +1,6 @@
 ## springboot-data-rest
 Simple Spring Boot project that uses JPA and Rest.
-Provides Docker support.
+Provides Docker support.  Test branch.
 
 ### To run this program on the command line use these commands
 
